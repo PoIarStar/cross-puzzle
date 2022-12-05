@@ -60,7 +60,7 @@ try:
     while running:
         for event in pygame.event.get():
             if is_clear:
-                c = 0
+                c = -1
             if event.type == pygame.QUIT:
                 running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
@@ -77,11 +77,15 @@ try:
                     board.board = [[0] * board.height for _ in range(board.width)]
                     for i in range(c):
                         board.on_click((randint(0, 15), randint(0, 11)))
+                elif event.key == pygame.K_s:
+                    is_clear = False
+                    c = 0
         screen.fill((0, 0, 0))
         board.render(screen)
-        screen.blit(pygame.font.Font(None, 50).render(str(c), True, (100, 255, 100)), (0, 601))
+        screen.blit(pygame.font.Font(None, 80).render(str(c), True, (100, 255, 100)), (0, 601))
         pygame.display.flip()
     pygame.quit()
 except Exception as e:
     print(e)
     pygame.quit()
+
